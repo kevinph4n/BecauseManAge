@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // avatar được lưu ở Supabase Storage
+    // avatars -> Supabase Storage
     remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
   },
-  // Bản MVP không cài ESLint → tắt bước lint khi build để build trên Vercel không bị chặn
+  // MVP -> no ESLint yet -> turn off lint during build -> deploy vercel (no blocking)
   eslint: { ignoreDuringBuilds: true },
 };
 

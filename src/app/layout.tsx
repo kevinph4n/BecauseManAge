@@ -3,11 +3,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "BecauseManAge — manage cho tử tế",
+    default: "BecauseManAge - Manage cho tử tế...",
     template: "%s · BecauseManAge",
   },
   description:
-    "Because man age: vì con người rồi sẽ già đi, nên làm gì làm cho tử tế. Note dạng mindmap, quản lý dự án theo milestones, Gantt, lịch, chat theo cấp bậc.",
+    "Because Man Age: con người rồi cũng sẽ già đi... nên làm gì thì làm cho tử tế.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

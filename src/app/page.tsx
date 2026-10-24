@@ -7,12 +7,12 @@ import { createClient } from "@/lib/supabase/server";
 const FEATURES = [
   {
     no: "01",
-    title: "Note kiểu mindmap",
-    body: "Kéo thả các khối thông tin trên một mặt giấy vô hạn. Đổi font, màu nền, cỡ chữ, in đậm, in nghiêng. Quán ăn Q1–Q3, tính cách một người, ý tưởng lộn xộn — nhét hết vào.",
+    title: "Mindmap Notetaking",
+    body: "Kéo thả các khối thông tin trên một mặt giấy vô hạn. Đổi font, màu nền, cỡ chữ, in đậm, in nghiêng. e.g, Quán ăn Q1–Q3, tính cách một người, ý tưởng lộn xộn —> nhét hết vào.",
   },
   {
     no: "02",
-    title: "Milestones có phase",
+    title: "Milestones",
     body: "10 mốc xong = 100%. Mở rộng dự án thêm mốc → % tự co lại. Mỗi phase một sắc xanh, nhìn thanh tiến độ là biết dự án đã lớn lên thế nào.",
   },
   {
