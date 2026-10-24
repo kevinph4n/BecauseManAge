@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* ============ Design tokens — minimal sketching, đen trắng là chính ============ */
+@theme {
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Patrick Hand", "Comic Sans MS", ui-rounded, cursive;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: "Noto Serif", Georgia, serif;
+
+  --color-ink: #111111;
+  --color-paper: #fbfbf7;
+  --color-smoke: #6b6b66;
+  --color-line: #d8d8d1;
+  --color-fog: #efefe9;
+
+  /* chỉ dùng cho labels & milestones — những chỗ duy nhất có màu */
+  --color-label-field: #ffd84d;
+  --color-label-sky: #8fd3ff;
+  --color-ms-1: #cdeccd;
+  --color-ms-2: #a3d9a3;
+  --color-ms-3: #76c27a;
+  --color-ms-4: #4ea457;
+  --color-ms-5: #2f8a3b;
+  --color-danger: #c4342d;
+
+  /* bóng đổ kiểu sticker — dùng được với hover:/focus: */
+  --shadow-sketch: 3px 3px 0 #111111;
+  --shadow-sketch-sm: 2px 2px 0 #111111;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ============ Sketch primitives ============ */
+@layer components {
+  /* viền vẽ tay */
+  .sketch {
+    border: 1.5px solid var(--color-ink);
+    border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+  }
+  .sketch-alt {
+    border: 1.5px solid var(--color-ink);
+    border-radius: 14px 225px 14px 255px / 255px 14px 225px 14px;
+  }
+  /* khung lớn: chỉ hơi méo nhẹ */
+  .box {
+    border: 1.5px solid var(--color-ink);
+    border-radius: 3px 8px 4px 9px / 9px 4px 8px 3px;
+    background: #fff;
+  }
+
+  .paper-dots {
+    background-image: radial-gradient(#cfcfc8 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .paper-grid {
+    background-image:
+      linear-gradient(#e6e6df 1px, transparent 1px),
+      linear-gradient(90deg, #e6e6df 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .paper-lines {
+    background-image: repeating-linear-gradient(0deg, transparent 0 21px, #e3e3dc 21px 22px);
+  }
+  .paper-cross {
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 10px, #e3e3dc 10px 11px),
+      repeating-linear-gradient(-45deg, transparent 0 10px, #e3e3dc 10px 11px);
+  }
+
+  /* gạch sọc cho milestone chưa xong */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.75) 0 4px,
+      rgba(255, 255, 255, 0) 4px 8px
+    );
+  }
+
+  /* gạch chân kiểu bút dạ */
+  .scribble {
+    background-image: linear-gradient(transparent 62%, rgba(17, 17, 17, 0.12) 62%);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.95rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    border: 1.5px solid var(--color-ink);
+    border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+    background: #fff;
+    color: var(--color-ink);
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s;
+    box-shadow: 2px 2px 0 var(--color-ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+  .btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 0 0 0 var(--color-ink);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ghost {
+    box-shadow: none;
+    border-color: transparent;
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    box-shadow: none;
+    transform: none;
+    background: var(--color-fog);
+  }
+  .btn-sm {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.78rem;
+  }
+  .btn-danger {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    box-shadow: 2px 2px 0 var(--color-danger);
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: #fff;
+    border: 1.5px solid var(--color-ink);
+    border-radius: 3px 8px 4px 9px / 9px 4px 8px 3px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .input:focus {
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+  .label {
+    display: block;
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1.5px solid var(--color-ink);
+    border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+    white-space: nowrap;
+  }
+
+  .h-hand {
+    font-family: var(--font-hand);
+    letter-spacing: 0.01em;
+  }
+
+  /* nội dung html từ mindmap */
+  .rich b,
+  .rich strong {
+    font-weight: 700;
+  }
+  .rich i,
+  .rich em {
+    font-style: italic;
+  }
+  .rich u {
+    text-decoration: underline;
+  }
+  .rich ul {
+    list-style: disc;
+    padding-left: 1.2em;
+  }
+  .rich ol {
+    list-style: decimal;
+    padding-left: 1.2em;
+  }
+  .rich a {
+    text-decoration: underline;
+  }
+}
+
+/* contentEditable placeholder */
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-smoke);
+  opacity: 0.7;
+}
+
+/* scrollbar mảnh */
+.thin-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #c9c9c2;
+  border-radius: 8px;
+}
