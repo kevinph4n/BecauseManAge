@@ -54,25 +54,25 @@ export function ProjectChat({
     if (!activeId) return;
     let alive = true;
     setLoading(true);
-    supabase
-      .from("chat_messages")
-      .select("*")
-      .eq("channel_id", activeId)
-      .order("created_at", { ascending: false })
-      .limit(200)
-      .then(({ data }) => {
-        if (!alive) return;
-        setMessages(((data ?? []) as ChatMessage[]).reverse());
-        setLoading(false);
-      });
+    (async () => {
+      const { data } = await supabase
+        .from("chat_messages")
+        .select("*")
+        .eq("channel_id", activeId)
+        .order("created_at", { ascending: false })
+        .limit(200);
+      if (!alive) return;
+      setMessages(((data ?? []) as ChatMessage[]).reverse());
+      setLoading(false);
+    })();
 
     const channel = supabase
       .channel(`chat:${activeId}`)
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "chat_messages", filter: `channel_id=eq.${activeId}` },
-        (payload) => {
-          const msg = payload.new as ChatMessage;
+        (payload: { new: Record<string, unknown> }) => {
+          const msg = payload.new as unknown as ChatMessage;
           setMessages((ms) => (ms.some((m) => m.id === msg.id) ? ms : [...ms, msg]));
         },
       )

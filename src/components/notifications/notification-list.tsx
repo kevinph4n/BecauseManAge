@@ -27,7 +27,8 @@ export function NotificationList({ initial, meId }: { initial: Notification[]; m
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${meId}` },
-        (payload) => setItems((xs) => [payload.new as Notification, ...xs]),
+        (payload: { new: Record<string, unknown> }) =>
+          setItems((xs) => [payload.new as unknown as Notification, ...xs]),
       )
       .subscribe();
     return () => {
